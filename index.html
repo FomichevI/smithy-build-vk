@@ -135,8 +135,16 @@
         bridge.subscribe((e) => {
           if(e.detail.type == 'VKWebAppStorageGetResult') {
             ss.SendMessage('VkBridge', 'StorageGetResult', e.detail.data.keys[0].value);
-
-//Запускаем баннерную рекламу
+            ShowBannerAd();
+          }
+          if(e.detail.type == 'VKWebAppStorageGetFailed') {
+            ss.SendMessage('VkBridge', 'StorageGetResult', 'error');
+          }
+        });
+      }
+      function ShowBannerAd(){
+        const bridge = vkBridge.default;
+      //Запускаем баннерную рекламу
           bridge.send('VKWebAppShowBannerAd', {
           orientation: 'vertical'
           })
@@ -149,13 +157,6 @@
           // Ошибка
           console.log(error);
         });
-          
-          }
-          if(e.detail.type == 'VKWebAppStorageGetFailed') {
-            ss.SendMessage('VkBridge', 'StorageGetResult', 'error');
-          }
-        });
-
       }
       function ShowLeaderBoardBox(value){
         const bridge = vkBridge.default;
