@@ -102,7 +102,15 @@
 	
     function initBridge() {
           const bridge = vkBridge.default;
-          bridge.subscribe((e) => console.log("vkBridge event", e));
+          bridge.subscribe((e) => {
+            console.log("vkBridge event", e)
+            if (e.detail.type === 'VKWebAppViewHide') {
+            ss.SendMessage('VkBridge', 'StopGame');
+            }
+            if (e.detail.type === 'VKWebAppViewRestore') {
+            ss.SendMessage('VkBridge', 'ContinueGame');
+            }
+            });
           bridge.send("VKWebAppInit", {});
       }
     initBridge();
