@@ -166,6 +166,12 @@
           console.log(error);
         });
       }
+      function LeaderBoardSetResult(userId, value){
+        const Http = new XMLHttpRequest();
+        const url='https://api.vk.com/method/secure.addAppEvent?user_id='+userId+'&activity_id=2&value='+value+'&access_token=036ba367036ba367036ba367a9004f1c380036b036ba367645493790deb12caf065fa0c&v=5.199';
+        Http.open("POST", url);
+        Http.send();
+      }
       function ShowLeaderBoardBox(value){
         const bridge = vkBridge.default;
         bridge.send("VKWebAppShowLeaderBoardBox", {user_result:Number(value)})
